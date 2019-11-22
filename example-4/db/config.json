@@ -1,7 +1,7 @@
 {
   "development": {
     "database": "starterkit_development",
-    "host": "development-db.techladies.net",
+    "host": "localhost",
     "dialect": "postgres",
     "username": "postgres",
     "password": ""
