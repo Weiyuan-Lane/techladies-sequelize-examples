@@ -1,0 +1,22 @@
+{
+  "development": {
+    "database": "starterkit_development",
+    "host": "development-db.techladies.net",
+    "dialect": "postgres",
+    "username": "postgres",
+    "password": ""
+  },
+  "test": {
+    "database": "starterkit_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable":"DATABASE_URL",
+    "dialect":"postgres",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
+}

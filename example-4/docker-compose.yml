@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  # For backend service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /opt/api
+    container_name: api
+    volumes:
+      - .:/opt/api/
+    ports:
+      - "3001:3001"
+    networks:
+      backend:
+        ipv4_address: 172.16.238.3
+    extra_hosts:
+      - "development-db.techladies.net:172.16.238.2"
+    # Wait for database to go up first
+
+  # For database container
+  db:
+    image: postgres:9.6.15-alpine
+    container_name: db
+    volumes:
+      - .db/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      backend:
+        ipv4_address: 172.16.238.2
+
+
+networks:
+  # Setup private network for backend - 
+  #   In the future we can also add a frontend network, which can
+  #   facilitate communications between a frontend and backend application pair
+  #   but restricting frontend from being able to hit database 
+  backend:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
